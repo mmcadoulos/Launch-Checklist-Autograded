@@ -42,15 +42,27 @@ window.addEventListener("load", function () {
     let cargoLevel = this.document.querySelector("input[name=cargoMass]");
     let list = this.document.getElementById("faultyItems");
     if (
+      validateInput(pilot.value) === "Empty" ||
+      validateInput(copilot.value) === "Empty" ||
+      validateInput(fuelLevel.value) === "Empty" ||
+      validateInput(cargoLevel.value) === "Empty"
+    ) {
+      launchStatus.style.color = "black";
+      launchStatus.innerHTML = "Awaiting Information Before Launch";
+      list.style.visibility = "hidden";
+      event.preventDefault();
+      alert("All fields are required!");
+    } else if (
       validateInput(pilot.value) !== "Not a Number" ||
       validateInput(copilot.value) !== "Not a Number" ||
       validateInput(fuelLevel.value) !== "Is a Number" ||
       validateInput(cargoLevel.value) !== "Is a Number"
     ) {
+      launchStatus.style.color = "black";
+      launchStatus.innerHTML = "Awaiting Information Before Launch";
+      list.style.visibility = "hidden";
       event.preventDefault();
-      alert("all fields are required");
-      launchStatus.style.color = "red";
-      launchStatus.innerHTML = "Shuttle Not Ready for Launch";
+      alert("Make sure to enter valid information in each field!");
     } else {
       formSubmission(
         documentVar,
