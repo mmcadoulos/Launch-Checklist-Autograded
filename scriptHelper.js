@@ -23,6 +23,18 @@ function addDestinationInfo(
                  </ol>
                  <img src="">
     */
+  let heading = document.getElementById("missionTarget");
+  heading.innerHTML = `
+  <h2>Mission Destination</h2>
+                 <ol>
+                     <li>Name: ${name}</li>
+                     <li>Diameter: ${diameter}</li>
+                     <li>Star: ${star}</li>
+                     <li>Distance from Earth: ${distance}</li>
+                     <li>Number of Moons: ${moons}</li>
+                 </ol>
+                 <img src="${imageUrl}">
+                 `;
 }
 
 function validateInput(testInput) {
@@ -41,7 +53,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
   let copilotStatus = document.getElementById("copilotStatus");
   let fuelStatus = document.getElementById("fuelStatus");
   let cargoStatus = document.getElementById("cargoStatus");
-  
+
   list.style.visibility = "visible";
   pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`;
   copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`;
@@ -75,7 +87,11 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 async function myFetch() {
   let planetsReturned;
 
-  planetsReturned = await fetch().then(function (response) {});
+  planetsReturned = await fetch(
+    "https://handlers.education.launchcode.org/static/planets.json"
+  ).then(function (response) {
+    return response.json();
+  });
 
   return planetsReturned;
 }
@@ -83,6 +99,7 @@ async function myFetch() {
 function pickPlanet(planets) {
   let planet = {};
   //math random to find a planet
+  planet = planets[Math.floor(Math.random() * planets.length)];
   return planet;
 }
 
